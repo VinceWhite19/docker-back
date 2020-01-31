@@ -1,0 +1,15 @@
+- args:
+    table:
+      name: employees
+      schema: public
+  type: untrack_table
+- args:
+    table:
+      name: offices
+      schema: public
+  type: untrack_table
+- args:
+    table:
+      name: reviews
+      schema: public
+  type: untrack_table

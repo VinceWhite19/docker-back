@@ -39,20 +39,10 @@ services:
     restart: always
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://vince:P_Ssword@postgres-db:5432/some_db
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
+      HASURA_GRAPHQL_MIGRATIONS_DIR: .graphql/migrations/
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
-
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-    volumes:
-      - pgadmin-data:/root/.pgadmin
-    ports:
-      - "${PGADMIN_PORT:-5050}:80"
-    restart: unless-stopped
 
 volumes:
   postgres-data:
-  pgadmin-data:
+

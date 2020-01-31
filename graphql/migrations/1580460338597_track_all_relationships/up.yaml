@@ -1,0 +1,40 @@
+- args:
+    name: office
+    table:
+      name: employees
+      schema: public
+    using:
+      foreign_key_constraint_on: office_id
+  type: create_object_relationship
+- args:
+    name: reviews
+    table:
+      name: employees
+      schema: public
+    using:
+      foreign_key_constraint_on:
+        column: employee_id
+        table:
+          name: reviews
+          schema: public
+  type: create_array_relationship
+- args:
+    name: employees
+    table:
+      name: offices
+      schema: public
+    using:
+      foreign_key_constraint_on:
+        column: office_id
+        table:
+          name: employees
+          schema: public
+  type: create_array_relationship
+- args:
+    name: employee
+    table:
+      name: reviews
+      schema: public
+    using:
+      foreign_key_constraint_on: employee_id
+  type: create_object_relationship

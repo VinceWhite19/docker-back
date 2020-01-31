@@ -1,0 +1,24 @@
+- args:
+    relationship: office
+    table:
+      name: employees
+      schema: public
+  type: drop_relationship
+- args:
+    relationship: reviews
+    table:
+      name: employees
+      schema: public
+  type: drop_relationship
+- args:
+    relationship: employees
+    table:
+      name: offices
+      schema: public
+  type: drop_relationship
+- args:
+    relationship: employee
+    table:
+      name: reviews
+      schema: public
+  type: drop_relationship

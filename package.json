@@ -4,7 +4,9 @@
   "description": "Backend sample",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "hasura init --endpoint http://localhost:18080/",
+    "console": "cd graphql && hasura console"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +17,8 @@
     "@babel/preset-env": "^7.8.3",
     "apollo-server": "^2.9.16",
     "graphql": "^14.6.0"
+  },
+  "devDependencies": {
+    "hasura-cli": "^1.0.0"
   }
 }

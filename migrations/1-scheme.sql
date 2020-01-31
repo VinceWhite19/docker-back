@@ -1,14 +1,18 @@
 
 -- CREATE SCHEMA feedback;
 
+CREATE TABLE offices (
+    id SERIAL PRIMARY KEY,
+    city TEXT
+);
+
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
     first_name TEXT,
     second_name TEXT,
     description TEXT,
-    office TEXT
+    office_id INTEGER NOT NULL REFERENCES offices(id)
 );
--- COMMENT ON TABLE feedback.employees IS 'Provide a description for your parent table.';
 
 CREATE TABLE reviews (
     id SERIAL PRIMARY KEY,
@@ -19,6 +23,5 @@ CREATE TABLE reviews (
     email TEXT,
     phone INTEGER,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    parent_table_id INTEGER NOT NULL REFERENCES employees(id)
+    employee_id INTEGER NOT NULL REFERENCES employees(id)
 );
--- COMMENT ON TABLE feedback.reviews IS 'Provide a description for your child table.';
