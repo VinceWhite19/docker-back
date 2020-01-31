@@ -1,16 +1,18 @@
+GRAPH_CONSOLE_PORT=9695
+
 start:
-	pkill -f 'npm run console'
+	kill $(shell lsof -t -i:${GRAPH_CONSOLE_PORT})
 	npm install
 	docker-compose build mdr-feedback-qr-service
 	docker-compose up -d
 	(sleep 10 && npm run console) &
 
 stop:
-	pkill -f 'npm run console'
+	kill $(shell lsof -t -i:${GRAPH_CONSOLE_PORT})
 	docker-compose stop
 
 reset:
-	pkill -f 'npm run console'
+	kill $(shell lsof -t -i:${GRAPH_CONSOLE_PORT})
 	docker-compose down --volumes --remove-orphans
 
 status:
