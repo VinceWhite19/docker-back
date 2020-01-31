@@ -1,0 +1,14 @@
+- type: add_existing_table_or_view
+  args:
+    name: employees
+    schema: public
+
+- type: add_existing_table_or_view
+  args:
+    name: offices
+    schema: public
+
+- type: add_existing_table_or_view
+  args:
+    name: reviews
+    schema: public

@@ -5,7 +5,8 @@ start:
 	npm install
 	docker-compose build mdr-feedback-qr-service
 	docker-compose up -d
-	(sleep 30 && npm run console) &
+	docker-compose logs -f &
+	(sleep 40 && npm run console) &
 
 stop:
 	kill $(shell lsof -t -i:${GRAPH_CONSOLE_PORT}) | true
