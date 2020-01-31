@@ -6,18 +6,14 @@ services:
     build:
       context: ./
       dockerfile: deployment/nodemon/Dockerfile
-#    image: vitta/nodemon:latest
     ports:
       - "8081:8080"
     volumes:
       - ./:/app/
     environment:
       SCRIPT: /app/index.js
-#      APP: /code/index.js
-#    entrypoint: sysctl fs.inotify.max_user_watches=582222 && sysctl -p
-#    command: nodemon /app/index.js
 
-  postgres-db: # postgresql://vince:P_Ssword@localhost:25432/some_db
+  postgres-db: # external: postgresql://vince:P_Ssword@localhost:25432/some_db internal: postgresql://vince:P_Ssword@postgres-db:5432/some_db
     image: postgres:10
     environment:
       POSTGRES_USER:      vince
@@ -30,18 +26,20 @@ services:
       - ./migrations/1-scheme.sql:/docker-entrypoint-initdb.d/1-schema.sql
       - ./migrations/2-data.sql:/docker-entrypoint-initdb.d/2-2-data.sql
     
-  graphql-engine:
+  graphql-engine: # external: http://localhost:18080/ internal: http://graphql-engine:8080
     image: hasura/graphql-engine:v1.0.0
     ports:
-      - "18080:8080" # http://localhost:18080/
+      - "18080:8080"
     depends_on:
       - "postgres-db"
     restart: always
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://vince:P_Ssword@postgres-db:5432/some_db
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
-      HASURA_GRAPHQL_MIGRATIONS_DIR: .graphql/migrations/
+      HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura-migrations
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+    volumes:
+    - ./graphql/:/hasura-migrations
 
 volumes:
   postgres-data:
