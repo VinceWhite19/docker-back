@@ -1,0 +1,45 @@
+image: node
+
+variables:
+  PROJECT_HOME: /opt/vince/docker-back
+
+stages:
+  - build
+  - deploy
+
+build:
+  image: node:12.14
+  stage: build
+  script:
+    - npm install --progress=false
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - ./
+
+manual-up:
+  when: manual
+  image: goforbroke1006/rough-deployment:latest
+  tags:
+    - SOME_TAG_TO_DISCOVER_YOUR_RUNNER
+  stage: deploy
+  variables:
+    TARGET_HOST:      ${STAGING_HOST}
+    TARGET_USERNAME:  ${STAGING_USERNAME}
+    TARGET_PASSWORD:  ${STAGING_PASSWORD}
+  script:
+    - scp ./* ${STAGING_USERNAME}@${STAGING_HOST}:${PROJECT_HOME}
+    - rssh cd ${PROJECT_HOME} && docker-compose up -d
+
+manual-down:
+  when: manual
+  image: goforbroke1006/rough-deployment:latest
+  tags:
+    - SOME_TAG_TO_DISCOVER_YOUR_RUNNER
+  stage: deploy
+  variables:
+    TARGET_HOST:      ${STAGING_HOST}
+    TARGET_USERNAME:  ${STAGING_USERNAME}
+    TARGET_PASSWORD:  ${STAGING_PASSWORD}
+  script:
+    - rssh cd ${PROJECT_HOME} && docker-compose stop
