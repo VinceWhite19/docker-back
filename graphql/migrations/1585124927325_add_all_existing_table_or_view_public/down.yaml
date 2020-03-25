@@ -1,0 +1,15 @@
+- args:
+    table:
+      name: knex_migrations
+      schema: public
+  type: untrack_table
+- args:
+    table:
+      name: knex_migrations_lock
+      schema: public
+  type: untrack_table
+- args:
+    table:
+      name: users
+      schema: public
+  type: untrack_table

@@ -4,9 +4,10 @@
   "description": "Backend sample",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "init": "hasura init --endpoint http://localhost:18080/",
-    "console": "cd graphql && hasura console"
+    "console": "cd graphql && hasura console --admin-secret=3fbed8f2-6630-49f0-8d9e-34d4dc20a3fc"
   },
   "author": "",
   "license": "ISC",
@@ -16,9 +17,25 @@
     "@babel/node": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "apollo-server": "^2.9.16",
-    "graphql": "^14.6.0"
+    "graphql": "^14.6.0",
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "crypto": "^1.0.1",
+    "dotenv": "^6.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^5.3.1",
+    "knex": "^0.20.13",
+    "objection": "^1.6.11",
+    "objection-db-errors": "^1.1.2",
+    "passport": "^0.4.1",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "pg": "^7.18.2",
+    "util": "^0.11.1",
+    "nodemon": "2.0.2"
   },
   "devDependencies": {
-    "hasura-cli": "^1.0.0"
+    "hasura-cli": "^1.1.0"
   }
 }

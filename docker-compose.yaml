@@ -28,7 +28,7 @@ services:
     
   graphql-engine: # external: http://localhost:18080/ internal: http://graphql-engine:8080
 #    image: hasura/graphql-engine:v1.0.0
-    image: hasura/graphql-engine:v1.0.0-alpha42.cli-migrations
+    image: hasura/graphql-engine:v1.1.0.cli-migrations
     ports:
       - "18080:8080"
     depends_on:
@@ -37,12 +37,27 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://vince:P_Ssword@postgres-db:5432/some_db
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
+      HASURA_GRAPHQL_ADMIN_SECRET: "3fbed8f2-6630-49f0-8d9e-34d4dc20a3fc"
+      HASURA_GRAPHQL_AUTH_HOOK: http://localhost:8081/webhook
+      #HASURA_GRAPHQL_AUTH_HOOK_MODE: POST
 #      HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura-migrations
 #      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
     volumes:
     - ./graphql/migrations:/hasura-migrations
 #    - ./graphql/:/hasura-migrations
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+  #   volumes:
+  #     - pgadmin-data:/root/.pgadmin
+  #   depends_on:
+  #     - "postgres-db"
+  #   ports:
+  #     - "${PGADMIN_PORT:-5050}:80"
+  #   restart: unless-stopped
 
 volumes:
   postgres-data:
-
+  # pgadmin-data:

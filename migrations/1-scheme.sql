@@ -11,7 +11,10 @@ CREATE TABLE employees (
     first_name TEXT,
     second_name TEXT,
     description TEXT,
-    office_id INTEGER NOT NULL REFERENCES offices(id)
+    office_id INTEGER NOT NULL REFERENCES offices(id),
+    rating INTEGER DEFAULT 0 NOT NULL,
+    img TEXT,
+    tags TEXT[]
 );
 
 CREATE TABLE reviews (
@@ -23,5 +26,6 @@ CREATE TABLE reviews (
     email TEXT,
     phone INTEGER,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    employee_id INTEGER NOT NULL REFERENCES employees(id)
+    employee_id INTEGER NOT NULL REFERENCES employees(id),
+    tags TEXT[]
 );
